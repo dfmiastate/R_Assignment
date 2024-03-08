@@ -189,7 +189,7 @@ r_teosinte_chr10_data <- arrange(teosinte_chr10_data,desc(position))
 
 #save all data to files
 #create folder maize_data and teosinte_data
-dir.create(file.path("~/R Assignment","teosinte_data"))
+dir.create(file.path("~/R_Assignment","teosinte_data"))
 save(teosinte_chr1_data,file="teosinte_data/teosinte_chr1_data.Rdata")
 save(teosinte_chr2_data,file="teosinte_data/teosinte_chr2_data.Rdata")
 save(teosinte_chr3_data,file="teosinte_data/teosinte_chr3_data.Rdata")
