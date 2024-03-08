@@ -231,4 +231,3 @@ save(r_maize_chr7_data,file="maize_data/r_maize_chr7_data.Rdata")
 save(r_maize_chr8_data,file="maize_data/r_maize_chr8_data.Rdata")
 save(r_maize_chr9_data,file="maize_data/r_maize_chr9_data.Rdata")
 save(r_maize_chr10_data,file="maize_data/r_maize_chr10_data.Rdata")
-
