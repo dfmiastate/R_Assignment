@@ -1,5 +1,5 @@
 #Set snp_position.txt as working directory
-setwd("~/R Assignment")
+setwd("~/R_Assignment")
 
 #puts snp_position into data
 snp_data <- read.table("snp_position.txt", sep ="\t", header = TRUE)
