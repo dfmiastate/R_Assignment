@@ -59,11 +59,12 @@ teosinte_data <- cbind(selected_snp_data, TTT_fang_data)
 maize_data <- cbind(selected_snp_data, TTM_fang_data)
 View(maize_data)
 
-#making subsets of each chromosome with missing data as ?
+#making subsets of each chromosome with missing data as ? start by cleaning data
 maize_data_clean <- clean_names(maize_data)
 teosinte_data_clean <- clean_names(teosinte_data)
 View(maize_data_clean)
-#WORKING
+
+#pull all chromosome data into each file and arrange by position
 maize_chr1_data <- maize_data_clean[maize_data_clean$chromosome == 1, ]
 maize_chr1_data <- arrange(maize_chr1_data,position)
 
@@ -198,6 +199,7 @@ save(teosinte_chr6_data,file="teosinte_data/teosinte_chr6_data.Rdata")
 save(teosinte_chr7_data,file="teosinte_data/teosinte_chr7_data.Rdata")
 save(teosinte_chr8_data,file="teosinte_data/teosinte_chr8_data.Rdata")
 save(teosinte_chr9_data,file="teosinte_data/teosinte_chr9_data.Rdata")
+save(teosinte_chr10_data,file="teosinte_data/teosinte_chr10_data.Rdata")
 save(r_teosinte_chr10_data,file="teosinte_data/r_teosinte_chr10_data.Rdata")
 save(r_teosinte_chr1_data,file="teosinte_data/r_teosinte_chr1_data.Rdata")
 save(r_teosinte_chr2_data,file="teosinte_data/r_teosinte_chr2_data.Rdata")
@@ -220,6 +222,7 @@ save(maize_chr6_data,file="maize_data/maize_chr6_data.Rdata")
 save(maize_chr7_data,file="maize_data/maize_chr7_data.Rdata")
 save(maize_chr8_data,file="maize_data/maize_chr8_data.Rdata")
 save(maize_chr9_data,file="maize_data/maize_chr9_data.Rdata")
+save(maize_chr10_data,file="maize_data/maize_chr10_data.Rdata")
 save(r_maize_chr10_data,file="maize_data/r_maize_chr10_data.Rdata")
 save(r_maize_chr1_data,file="maize_data/r_maize_chr1_data.Rdata")
 save(r_maize_chr2_data,file="maize_data/r_maize_chr2_data.Rdata")
