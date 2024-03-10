@@ -25,8 +25,9 @@ dim(snp_data)
 #get dimensions of fang_data 2782 rows, 1 column
 dim(fang_data)
 
-#load packages: janitor, tidyverse, plyr, dplyr, ggplot2, ggsignif, readr, reshape2
+#load package: tidyverse
 library(tidyverse)
+install.packages("tidyverse")
 
 #manipulate dataset to merge them
 
@@ -44,7 +45,7 @@ T_fang_data <- filter(fang_data,`Group`%in% c('ZMPBA','ZMPIL','ZMPJA'))
 TT_fang_data <- t(T_fang_data)
 TM_fang_data <- t(M_fang_data)
 
-#Trim transposed data to remove header
+#Trim transposed data to remove header, installed janitor for this
 install.packages("janitor")
 library(janitor)
 TTT_fang_data <- row_to_names(TT_fang_data, 3, remove_row = TRUE, remove_rows_above = TRUE)
@@ -63,6 +64,7 @@ View(maize_data)
 maize_data_clean <- clean_names(maize_data)
 teosinte_data_clean <- clean_names(teosinte_data)
 View(maize_data_clean)
+View(teosinte_data_clean)
 
 #pull all chromosome data into each file and arrange by position
 maize_chr1_data <- maize_data_clean[maize_data_clean$chromosome == 1, ]
@@ -234,3 +236,18 @@ save(r_maize_chr7_data,file="maize_data/r_maize_chr7_data.Rdata")
 save(r_maize_chr8_data,file="maize_data/r_maize_chr8_data.Rdata")
 save(r_maize_chr9_data,file="maize_data/r_maize_chr9_data.Rdata")
 save(r_maize_chr10_data,file="maize_data/r_maize_chr10_data.Rdata")
+
+#Visualizing 
+
+#this gives a bar graph counting number of SNPs per chromosome
+install.packages("tidyverse")
+ggplot_snp_data <- ggplot(data = snp_data) + stat_count(mapping = aes(x=Chromosome))
+print(ggplot_snp_data)
+
+#to determine number of snps on maize and number of snps on teosinte
+ggplot_maize <- ggplot(data = maize_data_clean) + stat_count(mapping = aes(x=chromosome))
+print(ggplot_maize)
+ggplot_teosinte <- ggplot(data = teosinte_data_clean) + stat_count(mapping = aes(x=chromosome))
+print(ggplot_teosinte)
+
+
