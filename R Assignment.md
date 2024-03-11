@@ -250,4 +250,121 @@ print(ggplot_maize)
 ggplot_teosinte <- ggplot(data = teosinte_data_clean) + stat_count(mapping = aes(x=chromosome))
 print(ggplot_teosinte)
 
+#to determine homozygous to heterozygous for each sample and each group
+#maize
+maize_data_hh <- maize_data_clean[,-1:-3]
+maize_data_hh$homozygous <- rep(x=0,times=1)
+maize_data_hhh <- maize_data_hh
+for (i in 1:nrow(maize_data_hh)) {
+for (j in 1:ncol(maize_data_hh)) {
+maize_data_hhh[i,ncol(maize_data_hhh)] = ifelse((maize_data_hh[i,j]=="A/A"|maize_data_hh[i,j]=="C/C"|maize_data_hh[i,j]=="T/T"|maize_data_hh[i,j]=="G/G"),maize_data_hhh[i,ncol(maize_data_hhh)]+1,maize_data_hhh[i,ncol(maize_data_hhh)]+0)
+}
+}
 
+maize_data_hhh$missing <- rep(x=0,times=1)
+for (i in 1:nrow(maize_data_hh)) {
+for (j in 1:ncol(maize_data_hh)) {
+maize_data_hhh[i,ncol(maize_data_hhh)] = ifelse((maize_data_hh[i,j]=="?/?"),maize_data_hhh[i,ncol(maize_data_hhh)]+1,maize_data_hhh[i,ncol(maize_data_hhh)]+0)
+}
+}
+View(maize_data_hhh)
+maize_data_hhh$heterozygous <- rep(x=0,times=1)
+for (i in 1:nrow(maize_data_hh)) {
+maize_data_hhh[i,ncol(maize_data_hhh)] = 1573-(maize_data_hhh[i,ncol(maize_data_hhh)-1]+maize_data_hhh[i,ncol(maize_data_hhh)-2])
+}
+maize_data_hhh_cut <- select(maize_data_hhh, "homozygous", "heterozygous", "missing")
+maize_data_hhm <- cbind(maize_data_clean,maize_data_hhh_cut)
+View(maize_data_hhm)
+#homozygous
+maize_data_homozygous_sum <- rep(x=0,times=10)
+maize_data_homozygous_sum <- t(maize_data_homozygous_sum)
+for (i in 1:10) {
+maize_data_homozygous_sum[,i] = sum(maize_data_hhm[which(maize_data_hhm$chromosome==i),]$homozygous)
+}
+
+maize_data_homozygous_sum2 <- data.frame(   name=c("1","2","3","4","5","6","7","8","9","10") ,     value=t(maize_data_homozygous_sum)   )
+
+ggplot(maize_data_homozygous_sum2, aes(x=name, y=value)) +    geom_bar(stat = "identity")
+
+#heterozygous
+
+maize_data_heterozygous_sum <- rep(x=0,times=10)
+maize_data_heterozygous_sum <- t(maize_data_heterozygous_sum)
+for (i in 1:10) {
+maize_data_heterozygous_sum[,i] = sum(maize_data_hhm[which(maize_data_hhm$chromosome==i),]$heterozygous)
+}
+
+maize_data_heterozygous_sum2 <- data.frame(   name=c("1","2","3","4","5","6","7","8","9","10") ,     value=t(maize_data_heterozygous_sum)   )
+
+ggplot(maize_data_heterozygous_sum2, aes(x=name, y=value)) +    geom_bar(stat = "identity")
+
+#missing
+maize_data_missing_sum <- rep(x=0,times=10)
+maize_data_missing_sum <- t(maize_data_missing_sum)
+for (i in 1:10) {
+maize_data_missing_sum[,i] = sum(maize_data_hhm[which(maize_data_hhm$chromosome==i),]$missing)
+}
+
+maize_data_missing_sum2 <- data.frame(   name=c("1","2","3","4","5","6","7","8","9","10") ,     value=t(maize_data_missing_sum)   )
+
+ggplot(maize_data_missing_sum2, aes(x=name, y=value)) +    geom_bar(stat = "identity")
+
+#teosinte heterozygous/homozygous/missing
+teosinte_data_hh <- teosinte_data_clean[,-1:-3]
+teosinte_data_hh$homozygous <- rep(x=0,times=1)
+teosinte_data_hhh <- teosinte_data_hh
+for (i in 1:nrow(teosinte_data_hh)) {
+for (j in 1:ncol(teosinte_data_hh)) {
+teosinte_data_hhh[i,ncol(teosinte_data_hhh)] = ifelse((teosinte_data_hh[i,j]=="A/A"|teosinte_data_hh[i,j]=="C/C"|teosinte_data_hh[i,j]=="T/T"|teosinte_data_hh[i,j]=="G/G"),teosinte_data_hhh[i,ncol(teosinte_data_hhh)]+1,teosinte_data_hhh[i,ncol(teosinte_data_hhh)]+0)
+}
+}
+
+teosinte_data_hhh$missing <- rep(x=0,times=1)
+for (i in 1:nrow(teosinte_data_hh)) {
+for (j in 1:ncol(teosinte_data_hh)) {
+teosinte_data_hhh[i,ncol(teosinte_data_hhh)] = ifelse((teosinte_data_hh[i,j]=="?/?"),teosinte_data_hhh[i,ncol(teosinte_data_hhh)]+1,teosinte_data_hhh[i,ncol(teosinte_data_hhh)]+0)
+}
+}
+View(teosinte_data_hhh)
+teosinte_data_hhh$heterozygous <- rep(x=0,times=1)
+for (i in 1:nrow(teosinte_data_hh)) {
+teosinte_data_hhh[i,ncol(teosinte_data_hhh)] = 1573-(teosinte_data_hhh[i,ncol(teosinte_data_hhh)-1]+teosinte_data_hhh[i,ncol(teosinte_data_hhh)-2])
+}
+teosinte_data_hhh_cut <- select(teosinte_data_hhh, "homozygous", "heterozygous", "missing")
+teosinte_data_hhm <- cbind(teosinte_data_clean,teosinte_data_hhh_cut)
+View(teosinte_data_hhm)
+#homozygous
+teosinte_data_homozygous_sum <- rep(x=0,times=10)
+teosinte_data_homozygous_sum <- t(teosinte_data_homozygous_sum)
+for (i in 1:10) {
+teosinte_data_homozygous_sum[,i] = sum(teosinte_data_hhm[which(teosinte_data_hhm$chromosome==i),]$homozygous)
+}
+
+teosinte_data_homozygous_sum2 <- data.frame(   name=c("1","2","3","4","5","6","7","8","9","10") ,     value=t(teosinte_data_homozygous_sum)   )
+
+ggplot(teosinte_data_homozygous_sum2, aes(x=name, y=value)) +    geom_bar(stat = "identity")
+
+#heterozygous
+
+teosinte_data_heterozygous_sum <- rep(x=0,times=10)
+teosinte_data_heterozygous_sum <- t(teosinte_data_heterozygous_sum)
+for (i in 1:10) {
+teosinte_data_heterozygous_sum[,i] = sum(teosinte_data_hhm[which(teosinte_data_hhm$chromosome==i),]$heterozygous)
+}
+
+teosinte_data_heterozygous_sum2 <- data.frame(   name=c("1","2","3","4","5","6","7","8","9","10") ,     value=t(teosinte_data_heterozygous_sum)   )
+
+ggplot(teosinte_data_heterozygous_sum2, aes(x=name, y=value)) +    geom_bar(stat = "identity")
+
+#missing
+teosinte_data_missing_sum <- rep(x=0,times=10)
+teosinte_data_missing_sum <- t(teosinte_data_missing_sum)
+for (i in 1:10) {
+teosinte_data_missing_sum[,i] = sum(teosinte_data_hhm[which(teosinte_data_hhm$chromosome==i),]$missing)
+}
+
+teosinte_data_missing_sum2 <- data.frame(   name=c("1","2","3","4","5","6","7","8","9","10") ,     value=t(teosinte_data_missing_sum)   )
+
+ggplot(teosinte_data_missing_sum2, aes(x=name, y=value)) +    geom_bar(stat = "identity")
+
+#my own visual
