@@ -368,3 +368,8 @@ teosinte_data_missing_sum2 <- data.frame(   name=c("1","2","3","4","5","6","7","
 ggplot(teosinte_data_missing_sum2, aes(x=name, y=value)) +    geom_bar(stat = "identity")
 
 #my own visual
+ggplot_position_chromosome_maize <- ggplot(data=maize_data_clean) + geom_point(mapping = aes(x=position, y=chromosome))
+print(ggplot_position_chromosome_maize)
+
+ggplot_position_chromosome_teosinte <- ggplot(data=teosinte_data_clean) + geom_point(mapping = aes(x=position, y=chromosome))
+print(ggplot_position_chromosome_teosinte)
