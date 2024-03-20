@@ -41,15 +41,13 @@ M_fang_data <- filter(fang_data,`Group`%in% c('ZMMIL','ZMMLR','ZMMMR'))
 #Pull all teosinte from each data set by filter
 T_fang_data <- filter(fang_data,`Group`%in% c('ZMPBA','ZMPIL','ZMPJA'))
 
-#transpose M_fang_data and T_fang_data
-TT_fang_data <- t(T_fang_data)
-TM_fang_data <- t(M_fang_data)
+#trim data to remove header
+T_fang_data_trim <- T-fang_data[-c(2:3)]
+M_fang_data_trim <- M_fang_data[-c(2:3)]
 
-#Trim transposed data to remove header, installed janitor for this
-install.packages("janitor")
-library(janitor)
-TTT_fang_data <- row_to_names(TT_fang_data, 3, remove_row = TRUE, remove_rows_above = TRUE)
-TTM_fang_data <- row_to_names(TM_fang_data, 3, remove_row = TRUE, remove_rows_above = TRUE)
+#transpose M_fang_data and T_fang_data
+TTT_fang_data <- t(T_fang_data_trim)
+TTM_fang_data <- t(M_fang_data_trim)
 
 
 #arrange the columns based on SNP_ID
