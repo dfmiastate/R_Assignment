@@ -1,0 +1,24 @@
+---
+title: "R-Assignment_peer_Review_for_Daniel_Montgomery"
+author: "Abdulhakim Tofik"
+date: "2024-03-16"
+output: html_document
+---
+
+1. Loading the SNP file from txt file into data fram is great. An alternative method would be accessing the raw file directly from git.
+2. The dimensions of your SNP file and Fang_genotype file differ from what I have. It seems you got the correct number of rows for Fang_genotype, which was 2782, but it appears to have 986 columns. Additionally, the SNP file had 983 rows and 15 columns. It's important to ensure the accuracy of the data dimensions to avoid potential issues in subsequent analysis.
+3. you filtered out the groups needed for later analysis, which I believe these groups are in different columns so 1 columns would not be the right dimension for both files
+4. It would be great if you can also separate each parts and have some sort of header whether you are doing data inspection or data analysis and visualization
+5. instead of using cbind function you would need to use the merge function to make sure that you data sets are combined by matching values in the columns you chose
+6. instead of writing each code to create all the files you could also use the for loop which can be more efficient
+for (i in 1:length(unique(chr_maize$Chromosome))){
+  chrm <-  chr_maize %>% filter(Chromosome == i) %>% arrange(Position)
+  write.table(chrm, file = paste("./Maize/Maize_inc_A",i, sep="_"))
+}
+
+7. same can be done for the decreasing position,multiple positions and missing chromosomes by using the for loop command additionally you would not need to save each file as you can create a new directory before the for loop and lastly simply paste it into the new directory you created.
+8. for the visualization would have been great if you could also save the files as png after plotting the graphs
+
+
+Overall, your work on the analysis of the file is great. Although you can refine some of your codes to make it more efficient such as using loops for repititve tasks which can streamline your wokrflow and make sure you code is more robust and paying attention to data dimensions.
+
